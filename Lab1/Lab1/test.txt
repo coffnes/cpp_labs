@@ -1,0 +1,4 @@
+0007 faculty1 20 5
+0003 faculty2 16 4
+0005 faculty3 14 4
+0008 faculty1 15 6
