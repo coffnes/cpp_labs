@@ -1,20 +1,58 @@
-﻿// Lab4.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+﻿#include <iostream>
+#include "Keyboard.h"
+#include "Scanner.h"
 
-#include <iostream>
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "Russian");
+
+    Keyboard key1("Ryzen", 3, 120, "usb");
+    Keyboard key2("Logitech", 3, 112, "bluetooth");
+    Scanner sc1("Canon", 4, 400);
+    Scanner sc2("Samsung", 5, 600);
+    
+    Periphery* prArray[4];
+    const int count = 4;
+    prArray[0] = &key1;
+    prArray[1] = &key2;
+    prArray[2] = &sc1;
+    prArray[3] = &sc2;
+
+    int choice = -1;
+
+    while (true) {
+        cout << "1.Просмотр\n2.Вычислить\n3.Редактировать\n0.Выход\n";
+        cout << "Ваш выбор: ";
+        cin >> choice;
+        switch (choice) {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            for (int i = 0; i != count; i++) {
+                prArray[i]->output();
+                cout << endl;
+            }
+            break;
+        case 2:
+        {
+            float averageLifetime = 0.0;
+            for (int i = 0; i != count; i++) {
+                averageLifetime += prArray[i]->getLifetime();
+            }
+            averageLifetime /= 4.0;
+            cout << "Средний срок эксплуатации: " << averageLifetime << endl;
+            break;
+        }
+        case 3:
+            int index;
+            cout << "Номер элемента(от 1 до 4): ";
+            cin >> index;
+            prArray[index - 1]->edit();
+            break;
+        }
+    }
+
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
